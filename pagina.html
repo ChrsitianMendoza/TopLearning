@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Citas - Salud</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>document.querySelectorAll("input, select").forEach((input) => {
+    input.addEventListener("change", () => {
+      const icono = input.nextElementSibling; // Selecciona el icono
+      if (input.value.trim() !== "") {
+        icono.classList.remove("hidden");
+      } else {
+        icono.classList.add("hidden");
+      }
+    });
+  });
+  </script>
+</head>
+<body class="bg-blue-50">
+  <header class="bg-blue-500 text-white text-center py-6">
+    <h1 class="text-3xl font-bold">Formulario de Citas Médicas</h1>
+  </header>
+  <main class="p-6">
+    <form id="formulario" class="bg-white shadow-md rounded p-6 space-y-4">
+      <!-- Nombre completo -->
+      <div class="relative">
+        <label for="nombre" class="block text-gray-700">Nombre Completo</label>
+        <input type="text" id="nombre" name="nombre" class="w-full border-2 border-gray-300 p-2 rounded focus:outline-none">
+        <span class="hidden absolute right-2 top-3 text-green-500">&#x2714;</span>
+      </div>
+
+      <!-- Edad -->
+      <div class="relative">
+        <label for="edad" class="block text-gray-700">Edad</label>
+        <select id="edad" name="edad" class="w-full border-2 border-gray-300 p-2 rounded focus:outline-none">
+          <option disabled selected>Seleccionar</option>
+          <script>
+            for(let i = 10; i <= 99; i++) {
+              document.write(`<option value="${i}">${i}</option>`);
+            }
+          </script>
+        </select>
+        <span class="hidden absolute right-2 top-3 text-green-500">&#x2714;</span>
+      </div>
+
+      <!-- Género -->
+      <div class="relative">
+        <label for="genero" class="block text-gray-700">Género</label>
+        <select id="genero" name="genero" class="w-full border-2 border-gray-300 p-2 rounded focus:outline-none">
+          <option disabled selected>Seleccionar</option>
+          <option value="hombre">Hombre</option>
+          <option value="mujer">Mujer</option>
+        </select>
+        <span class="hidden absolute right-2 top-3 text-green-500">&#x2714;</span>
+      </div>
+
+      <!-- Otros campos -->
+      <div class="relative">
+        <label for="tipo-sangre" class="block text-gray-700">Tipo de Sangre</label>
+        <input type="text" id="tipo-sangre" class="w-full border-2 border-gray-300 p-2 rounded focus:outline-none">
+        <span class="hidden absolute right-2 top-3 text-green-500">&#x2714;</span>
+      </div>
+
+      <!-- Repite esto para otros campos como ocupación, estado civil, etc. -->
+
+      <!-- Botón final -->
+      <button type="submit" id="terminar" class="bg-blue-500 text-white w-full py-2 rounded hover:bg-blue-600">
+        Terminar
+      </button>
+    </form>
+  </main>
+</body>
+</html>
