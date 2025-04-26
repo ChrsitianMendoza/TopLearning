@@ -1,114 +1,104 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Contacto</title>
+    <title>Formulario Simple</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #f4f4f9;
             margin: 0;
+            padding: 0;
         }
-        .form-container {
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 10px;
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            border-radius: 8px;
         }
-        h2 {
+
+        h1 {
             text-align: center;
-            margin-bottom: 20px;
+            color: #333;
         }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
         input, textarea {
-            width: 100%;
+            margin-top: 5px;
             padding: 10px;
-            margin-bottom: 15px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
+            border-radius: 4px;
+            font-size: 1em;
             width: 100%;
+        }
+
+        button {
+            margin-top: 20px;
             padding: 10px;
             background-color: #007BFF;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
         }
+
         button:hover {
             background-color: #0056b3;
         }
-        .mensaje-exito {
+
+        .hidden {
             display: none;
             margin-top: 15px;
             color: green;
-            text-align: center;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Contáctanos</h2>
-        <form id="formulario">
-            <input type="text" id="nombre" placeholder="Nombre" required>
-            <input type="email" id="correo" placeholder="Correo" required>
-            <textarea id="mensaje" placeholder="Mensaje" rows="4" required></textarea>
+    <div class="container">
+        <h1>Formulario de Contacto</h1>
+        <form id="contactForm">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Correo:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Mensaje:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
             <button type="submit">Enviar</button>
-            <div class="mensaje-exito" id="mensajeExito">¡Mensaje enviado con éxito!</div>
         </form>
+        <div id="successMessage" class="hidden">¡Formulario enviado correctamente!</div>
     </div>
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
 
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
 
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBTOy8zImmAl3ubugX4nPE5rtKSG6YSuPQ",
-            authDomain: "e1459-toplearning.firebaseapp.com",
-            projectId: "e1459-toplearning",
-            storageBucket: "e1459-toplearning.firebasestorage.app",
-            messagingSenderId: "504729474519",
-            appId: "1:504729474519:web:2589b1740568978b9e6792",
-            measurementId: "G-CT2N4Y3NZ8"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getFirestore(app);
-
-        const formulario = document.getElementById('formulario');
-        const mensajeExito = document.getElementById('mensajeExito');
-
-        formulario.addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const nombre = document.getElementById('nombre').value;
-            const correo = document.getElementById('correo').value;
-            const mensaje = document.getElementById('mensaje').value;
-
-            try {
-                await addDoc(collection(db, "contactos"), {
-                    nombre: nombre,
-                    correo: correo,
-                    mensaje: mensaje,
-                    fecha: new Date()
-                });
-
-                mensajeExito.style.display = 'block';
-                formulario.reset();
-            } catch (error) {
-                console.error("Error al enviar mensaje: ", error);
+            if (name && email && message) {
+                document.getElementById("successMessage").classList.remove("hidden");
+                document.getElementById("contactForm").reset();
+            } else {
+                alert("Por favor, completa todos los campos.");
             }
         });
     </script>
